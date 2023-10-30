@@ -5,6 +5,8 @@
 package veterinariagrupo85;
 import Vistas.Panel1;
 import Vistas.Panel2;
+import Vistas.PanelHome;
+import Vistas.panelTratamiento;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -16,10 +18,17 @@ import javax.swing.*;
  */
 public class App extends javax.swing.JFrame {
 
-    String [] identificadores={"panelClientes","panelMascotas","subPanelCliente"};
-    
-    Panel1 panel1=new Panel1();
-    Panel2 panel2=new Panel2();
+    private final String [] identificadores={
+        "panelClientes","panelMascotas",
+        "PanelTratamiento","PanelHome",
+        "PanelVisitas","PanelOpciones"
+  
+    };
+    public String panelActivo = identificadores[3];
+    Panel1 panel1;
+    Panel2 panel2;
+    PanelHome home;
+    panelTratamiento panel3;
     CardLayout cardLayout;
     
     /**
@@ -28,7 +37,19 @@ public class App extends javax.swing.JFrame {
     public App() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("/Resources/pet.png")).getImage());
-        cardLayout=(CardLayout)panel1.getLayout();
+        //cardLayout=(CardLayout)panel1.getLayout();
+        cardLayout=new CardLayout();
+        panelCentral.setLayout(cardLayout);
+        home=new PanelHome();
+        panel2=new Panel2();
+        panel1=new Panel1();
+        panel3=new panelTratamiento();
+        panelCentral.add(home,identificadores[3]); //home
+        panelCentral.add(panel2,identificadores[1]); // mascotas
+        panelCentral.add(panel1,identificadores[0]); // clientes
+        panelCentral.add(panel3,identificadores[2]); // tratamientos
+        setResizable(false);
+        
         
         
         
@@ -49,7 +70,7 @@ public class App extends javax.swing.JFrame {
                 super.paintComponent(g);
 
                 // Reemplaza "ruta_de_la_imagen.jpg" con la ruta de tu imagen
-                ImageIcon imageIcon = new ImageIcon("src\\Resources\\huesos.jpg");
+                ImageIcon imageIcon = new ImageIcon("src\\Resources\\petFondo.jpg");
                 Image image = imageIcon.getImage();
                 g.drawImage(image, 0, 0, this);
             }
@@ -100,6 +121,11 @@ public class App extends javax.swing.JFrame {
         jButton2.setContentAreaFilled(false);
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton2.setOpaque(true);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/-local-hospital_90099.png"))); // NOI18N
@@ -108,6 +134,11 @@ public class App extends javax.swing.JFrame {
         jButton3.setBorderPainted(false);
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.setFocusPainted(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/phonendoscope_2786238.png"))); // NOI18N
@@ -210,14 +241,14 @@ public class App extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGap(0, 590, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 40, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 580, 40));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 590, 40));
 
         panelCentral.setLayout(new java.awt.CardLayout());
         getContentPane().add(panelCentral, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 580, 430));
@@ -227,7 +258,15 @@ public class App extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        System.out.println("funciona el boton");
+        if(Panel1.capaClientes){
+             cardLayout.show(panelCentral,identificadores[0]);
+             Panel1.jRetroceder.setVisible(false);
+        }else{
+             Panel1.jRetroceder.doClick();
+            Panel1.jRetroceder.setVisible(false);
+        }
+//        cardLayout.show(panelCentral,identificadores[0]);
+//        Panel1.jRetroceder.setVisible(false);
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -255,11 +294,38 @@ public class App extends javax.swing.JFrame {
 
     private void jHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jHomeActionPerformed
         // TODO add your handling code here:
-        panelCentral.add(panel1,"panel1");
-        SwingUtilities.updateComponentTreeUI(this);
-        this.repaint();
+//        panelCentral.add(panel1,"panel1");
+//        SwingUtilities.updateComponentTreeUI(this);
+//        this.repaint();
+            cardLayout.show(panelCentral,identificadores[3]);
         
     }//GEN-LAST:event_jHomeActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+            if(!Panel2.capaMascotas){
+                Panel1.jRetroceder.doClick();
+                Panel1.jRetroceder.setVisible(false);
+                 cardLayout.show(panelCentral,identificadores[1]);
+            }else{   
+                cardLayout.show(panelCentral,identificadores[1]);
+            //cardLayout.show(panelCentral,identificadores[1]);
+            }
+        
+        
+//             Panel1.jRetroceder.doClick();
+//            Panel1.jRetroceder.setVisible(false);
+//            cardLayout.show(panelCentral,identificadores[1]);
+//    
+       
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        cardLayout.show(panelCentral,identificadores[2]);
+       
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
