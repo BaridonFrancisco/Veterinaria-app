@@ -10,10 +10,12 @@ import Data.VisitaData;
 import Entidades.Mascota;
 import Entidades.Tratamiento;
 import Entidades.Visita;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -79,6 +81,7 @@ public class ModificarVisita extends javax.swing.JFrame {
         jrNo = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Modificar Visita");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -291,8 +294,16 @@ public class ModificarVisita extends javax.swing.JFrame {
     }//GEN-LAST:event_jcComboActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+        try{
+            Double peso=Double.valueOf(jtPeso.getText());
+            LocalDate fecha=jdDia.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String detalle=jtDetalle.getText();
+            if(detalle.isEmpty() || fecha==null || peso<=0){
+                 throw new RuntimeException("La fecha no puede estar vacia,el peso no puede ser 0 y el detalle no puede estar vacio");
+                
+            }
 
-        Visita vi = new Visita();
+         Visita vi = new Visita();
         ///////
         int idT = ((Tratamiento) jcCombo.getSelectedItem()).getIdTratamiento();
         vi.setMascota(masdata.buscarMascotaid(idMascota));
@@ -305,6 +316,20 @@ public class ModificarVisita extends javax.swing.JFrame {
         System.out.println(vi);
         vidata.modificar(vi);
         this.dispose();
+        
+        }catch(NumberFormatException e){
+            
+             JOptionPane.showMessageDialog(null, "no ha introducido un peso valido", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            getToolkit().beep();
+            jtPeso.setText("");
+            
+        }catch(RuntimeException e){
+             JOptionPane.showMessageDialog(null, e.getMessage() + "", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            getToolkit().beep();
+            
+            
+        }
+       
 
     }//GEN-LAST:event_jbModificarActionPerformed
 
@@ -384,7 +409,9 @@ private void cargarcombo() {
 
     private void cargardatos() {
 
+       
         Visita vi = vidata.buscarVisitaID(idVisita);
+        if(vi!=null){
         Mascota mas = masdata.buscarMascotaid(vi.getMascota().getIdMascota());
         Tratamiento ta = tradata.buscar(vi.getTratamiento().getIdTratamiento());
         Date dia = java.sql.Date.valueOf(vi.getVisita());
@@ -401,6 +428,10 @@ private void cargarcombo() {
         int indice=indexTratamiento(ta.getTipoTratamiento());
         System.out.println(indice);
         jcCombo.setSelectedIndex(indice);
+            
+            
+        }
+     
 
     }
     private int indexTratamiento(String tratamiento){

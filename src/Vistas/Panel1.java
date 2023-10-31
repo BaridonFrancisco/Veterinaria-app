@@ -441,7 +441,7 @@ public class Panel1 extends javax.swing.JPanel {
             jPanel3.revalidate();
             
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El campo DNI debe ser un numero y no puede estar vacio ", "DNI invalido", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El campo DNI, y los telefonos deben ser un numero y no puede estar vacio ", "DNI invalido", JOptionPane.WARNING_MESSAGE);
             //jDni.setText("");
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error inesperado", JOptionPane.ERROR_MESSAGE);

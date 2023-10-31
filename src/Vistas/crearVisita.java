@@ -13,6 +13,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -285,21 +286,47 @@ public class crearVisita extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCrearActionPerformed
-       
-        Visita vi = new Visita();
-        ///////
-        int idT = ((Tratamiento)jcCombo.getSelectedItem()).getIdTratamiento();
-        vi.setMascota(masdata.buscarMascotaid(idMascota));
-        vi.setDetalle(jtDetalle.getText());
-        vi.setTratamiento(tradata.buscar(idT));
-        vi.setPeso(Double.parseDouble(jtPeso.getText()));
-        vi.setActivo(true);
-        vi.setVisita(jdDia.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        vi.setFinalizado(jrSi.isSelected());
-        System.out.println(vi);
-        vidata.guardar(vi);
-        this.dispose();
-        
+
+        try {
+
+            Visita vi = new Visita();
+            ///////
+            String detalle=jtDetalle.getText();
+            if(detalle.isEmpty()){
+                 throw new RuntimeException("El detalle no puede estar vacio o nulo");
+                
+            }
+            
+            
+            if (jdDia != null) {
+
+                int idT = ((Tratamiento) jcCombo.getSelectedItem()).getIdTratamiento();
+                vi.setMascota(masdata.buscarMascotaid(idMascota));
+                vi.setDetalle(jtDetalle.getText());
+                vi.setTratamiento(tradata.buscar(idT));
+                vi.setPeso(Double.parseDouble(jtPeso.getText()));
+                vi.setActivo(true);
+                vi.setVisita(jdDia.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                vi.setFinalizado(jrSi.isSelected());
+                System.out.println(vi);
+                vidata.guardar(vi);
+                this.dispose();
+
+            } else {
+                throw new RuntimeException("La fecha no puede estar vacia");
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "no ha introducido un peso valido", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            getToolkit().beep();
+            jtPeso.setText("");
+
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage() + "", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            getToolkit().beep();
+        }
+
+
     }//GEN-LAST:event_jbCrearActionPerformed
 
     private void jcComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcComboActionPerformed

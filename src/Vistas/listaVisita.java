@@ -12,6 +12,7 @@ import Entidades.Tratamiento;
 import Entidades.Visita;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -290,13 +291,17 @@ public class listaVisita extends javax.swing.JFrame {
         if(fila!=-1){
         int idv= (Integer)jtTabla.getValueAt(fila, 0);
         idVisita = idv;
-        }
-        ModificarVisita ventana = new ModificarVisita();
+         ModificarVisita ventana = new ModificarVisita();
         ventana.setVisible(true);
         
         ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         peso = vidata.promedioVisitas(idMascota);
         jlPesoPromedio.setText(""+peso+" Kg");
+        }else{
+            JOptionPane.showMessageDialog(null,"No se selecionado ninguna visita","Visita seleccion",JOptionPane.INFORMATION_MESSAGE);
+            
+        }
+       
     
     }//GEN-LAST:event_jModificarActionPerformed
 
@@ -391,7 +396,13 @@ private void armarCabecera() {
 
     private void cargarTabla2() {
         int idtratamiento = ((Tratamiento) jcCombo.getSelectedItem()).getIdTratamiento();
+        System.out.println("idTratamiento ->"+idtratamiento+" idMascota ->"+idMascota);
         ArrayList<Visita> listaTratamientos = vidata.buscarT(idMascota, idtratamiento);
+        System.out.println(listaTratamientos);
+        listaTratamientos.forEach((t) -> {
+            System.out.println(t);
+            
+        } );
         for (Visita t : listaTratamientos) {
             modelo.addRow(new Object[]{
                 t.getIdVisita(),

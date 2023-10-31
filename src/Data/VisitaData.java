@@ -14,7 +14,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -166,8 +165,8 @@ public class VisitaData {
 
         try (PreparedStatement ps = con.prepareStatement(sql);) {
             if (mas != null) {
-                ps.setInt(1, id);
-                ps.setInt(2, idtratamiento);
+                ps.setInt(1, idtratamiento);
+                ps.setInt(2, id);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     visita = new Visita();
