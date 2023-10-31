@@ -6,6 +6,7 @@ package veterinariagrupo85;
 import Vistas.Panel1;
 import Vistas.Panel2;
 import Vistas.PanelHome;
+import Vistas.PanelOpciones;
 import Vistas.PanelVisitas;
 import Vistas.panelTratamiento;
 import java.awt.CardLayout;
@@ -32,6 +33,7 @@ public class App extends javax.swing.JFrame {
     panelTratamiento panel3;
     PanelVisitas panelVisitas;
     CardLayout cardLayout;
+    PanelOpciones panelOpciones;
     
     /**
      * Creates new form App
@@ -48,11 +50,13 @@ public class App extends javax.swing.JFrame {
         panel1=new Panel1();
         panel3=new panelTratamiento();
         panelVisitas=new PanelVisitas();
+        panelOpciones=new PanelOpciones();
         panelCentral.add(home,identificadores[3]); //home
         panelCentral.add(panel2,identificadores[1]); // mascotas
         panelCentral.add(panel1,identificadores[0]); // clientes
         panelCentral.add(panel3,identificadores[2]); // tratamientos
         panelCentral.add(panelVisitas,identificadores[4]); // visitas
+        panelCentral.add(panelOpciones,identificadores[5]); // opciones
         setResizable(false);
         
         
@@ -74,10 +78,10 @@ public class App extends javax.swing.JFrame {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
 
-                // Reemplaza "ruta_de_la_imagen.jpg" con la ruta de tu imagen
-                ImageIcon imageIcon = new ImageIcon("src\\Resources\\petFondo.jpg");
+                ImageIcon imageIcon = new ImageIcon("src\\Resources\\huesos7.jpg");
                 Image image = imageIcon.getImage();
-                g.drawImage(image, 0, 0, this);
+
+                g.drawImage(image, 0, 0,this);
             }
         };
         jClientes = new javax.swing.JButton();
@@ -86,6 +90,7 @@ public class App extends javax.swing.JFrame {
         jVisitas = new javax.swing.JButton();
         jHome = new javax.swing.JButton();
         jOpciones = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jSalir = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -144,7 +149,6 @@ public class App extends javax.swing.JFrame {
         jTratamientos.setContentAreaFilled(false);
         jTratamientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTratamientos.setFocusPainted(false);
-        jTratamientos.setOpaque(false);
         jTratamientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTratamientosActionPerformed(evt);
@@ -161,7 +165,6 @@ public class App extends javax.swing.JFrame {
         jVisitas.setContentAreaFilled(false);
         jVisitas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jVisitas.setFocusPainted(false);
-        jVisitas.setOpaque(false);
         jVisitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jVisitasActionPerformed(evt);
@@ -194,12 +197,28 @@ public class App extends javax.swing.JFrame {
         jOpciones.setContentAreaFilled(false);
         jOpciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jOpciones.setFocusPainted(false);
-        jOpciones.setOpaque(false);
+        jOpciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jOpcionesActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(51, 0, 255));
+        jLabel1.setText("Grupo  85");
 
         javax.swing.GroupLayout JpanelIzquierdoLayout = new javax.swing.GroupLayout(JpanelIzquierdo);
         JpanelIzquierdo.setLayout(JpanelIzquierdoLayout);
         JpanelIzquierdoLayout.setHorizontalGroup(
             JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jHome, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jOpciones)
+                    .addComponent(jLabel1))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
                 .addGroup(JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
@@ -215,12 +234,6 @@ public class App extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jVisitas)))
                 .addContainerGap(7, Short.MAX_VALUE))
-            .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jHome, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jOpciones))
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         JpanelIzquierdoLayout.setVerticalGroup(
             JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,7 +250,9 @@ public class App extends javax.swing.JFrame {
                 .addComponent(jVisitas)
                 .addGap(18, 18, 18)
                 .addComponent(jOpciones)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         getContentPane().add(JpanelIzquierdo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 140, 420));
@@ -290,16 +305,15 @@ public class App extends javax.swing.JFrame {
 //clientes
     private void jClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClientesActionPerformed
         // TODO add your handling code here:
-        if(Panel1.capaClientes){
-             cardLayout.show(panelCentral,identificadores[0]);
-             Panel1.jRetroceder.setVisible(false);
-        }else{
-             Panel1.jRetroceder.doClick();
-            Panel1.jRetroceder.setVisible(false);
-        }
-//        cardLayout.show(panelCentral,identificadores[0]);
-//        Panel1.jRetroceder.setVisible(false);
-       
+        cardLayout.show(panelCentral,identificadores[0]);
+//        if(Panel1.capaClientes){
+//             cardLayout.show(panelCentral,identificadores[0]);
+//             Panel1.jRetroceder.setVisible(false);
+//        }else{
+//             Panel1.jRetroceder.doClick();
+//            Panel1.jRetroceder.setVisible(false);
+//        }
+ 
     }//GEN-LAST:event_jClientesActionPerformed
 
     private void JpanelIzquierdoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JpanelIzquierdoMouseEntered
@@ -332,15 +346,16 @@ public class App extends javax.swing.JFrame {
     // mascotas
     private void jMascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMascotasActionPerformed
         // TODO add your handling code here:
-            if(!Panel2.capaMascotas){
-                Panel1.jRetroceder.doClick();
-                Panel1.jRetroceder.setVisible(false);
-                 cardLayout.show(panelCentral,identificadores[1]);
-            }else{   
-                cardLayout.show(panelCentral,identificadores[1]);
-            //cardLayout.show(panelCentral,identificadores[1]);
-            }
-        
+         cardLayout.show(panelCentral,identificadores[1]);
+//            if(!Panel2.capaMascotas){
+//                Panel1.jRetroceder.doClick();
+//                Panel1.jRetroceder.setVisible(false);
+//                 cardLayout.show(panelCentral,identificadores[1]);
+//            }else{   
+//                cardLayout.show(panelCentral,identificadores[1]);
+//            //cardLayout.show(panelCentral,identificadores[1]);
+//            }
+//        
         
 //             Panel1.jRetroceder.doClick();
 //            Panel1.jRetroceder.setVisible(false);
@@ -360,6 +375,11 @@ public class App extends javax.swing.JFrame {
         // TODO add your handling code here:
         cardLayout.show(panelCentral,identificadores[4]);
     }//GEN-LAST:event_jVisitasActionPerformed
+
+    private void jOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOpcionesActionPerformed
+        // TODO add your handling code here:
+        cardLayout.show(panelCentral,identificadores[5]);
+    }//GEN-LAST:event_jOpcionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -413,6 +433,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JPanel JpanelIzquierdo;
     private javax.swing.JButton jClientes;
     private javax.swing.JButton jHome;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jMascotas;
     private javax.swing.JButton jOpciones;
     private javax.swing.JPanel jPanel1;

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,14 +32,10 @@ public class Panel2 extends javax.swing.JPanel {
     ButtonGroup grupoBotones = new ButtonGroup();
     ClienteData dataCliente = new ClienteData();
     MascotaData dataMascota = new MascotaData();
-    Panel1 panel1 = new Panel1();
-    static public boolean capaMascotas = true;
-    CardLayout card;
+  
 
     public Panel2() {
         initComponents();
-        card = (CardLayout) this.getLayout();
-        this.add(panel1, "panel1");
         jEliminar.setEnabled(false);
         jModificar.setEnabled(false);
         jGuardar.setEnabled(true);
@@ -94,7 +91,6 @@ public class Panel2 extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setLayout(new java.awt.CardLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -261,7 +257,7 @@ public class Panel2 extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(66, 76, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,7 +314,16 @@ public class Panel2 extends javax.swing.JPanel {
                 .addGap(19, 19, 19))
         );
 
-        add(jPanel2, "card2");
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarActionPerformed
@@ -348,16 +353,9 @@ public class Panel2 extends javax.swing.JPanel {
 
                 int opc = JOptionPane.showConfirmDialog(null, "el Cliente no existe desea crear uno nuevo? Y/N", "Confirmacion", JOptionPane.YES_NO_CANCEL_OPTION);
                 if (opc == 0) {
-//                    visitasClienteNuevo ventana = new visitasClienteNuevo();
-//                    ventana.setVisible(true);
-//                    ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    if (cliente == null) {
-                        card.show(this, "panel1");
-                        Panel1.jRetroceder.setVisible(true);
-                        capaMascotas = false;
-                        Panel1.capaClientes = true;
-
-                    }
+                        VentanaCliente ventana=new VentanaCliente();
+                    ventana.setVisible(true);
+                    ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
                 } else {
                     limpiarCampos();
@@ -402,9 +400,9 @@ public class Panel2 extends javax.swing.JPanel {
             } else {
                 int opc = JOptionPane.showConfirmDialog(null, "el Cliente no existe desea crear uno nuevo? Y/N", "Confirmacion", JOptionPane.YES_NO_CANCEL_OPTION);
                 if (opc == 0) {
-//                    visitasClienteNuevo ventana = new visitasClienteNuevo();
-//                    ventana.setVisible(true);
-//                    ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    VentanaCliente ventana = new VentanaCliente();
+                    ventana.setVisible(true);
+                    ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 } else {
                     limpiarCampos();
                 }
