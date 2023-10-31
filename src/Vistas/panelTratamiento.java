@@ -4,6 +4,15 @@
  */
 package Vistas;
 
+import Data.TratamientoData;
+import Entidades.Tratamiento;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,28 +24,157 @@ public class panelTratamiento extends javax.swing.JPanel {
     /**
      * Creates new form panelTratamiento
      */
-    boolean bloquearSeleccion=false;
-    DefaultTableModel modelo= new DefaultTableModel(new Object[]{
+    boolean insertar = false;
+    boolean modoModificacion = true;
+    boolean finInsercion = false;
+    Tratamiento aux = new Tratamiento();
+    boolean bloquearSeleccion = false;
+    TratamientoData tradata = new TratamientoData();
+    DefaultTableModel modelo = new DefaultTableModel(new Object[]{
         "ID", "Tipo Tratamiento",
         "Descripcion", "Importe"
     }, 0) {
         @Override
         public boolean isCellEditable(int row, int column) {
-                  if (bloquearSeleccion) {
+            if (bloquearSeleccion) {
                 int ultimaFila = jtabla.getRowCount() - 1;
                 int idColumna = 0;
                 return column > idColumna && ultimaFila == row;
             }
             return column > 0;
         }
-            
-        
 
     };
 
     public panelTratamiento() {
         initComponents();
         jtabla.setModel(modelo);
+        jtabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        CargarTratamientos();
+
+        //evento de seleccion bloquea la seleccion cuando se inserte una fila
+         jtabla.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+
+                    try {
+                        if (bloquearSeleccion) {
+                            jtabla.getSelectionModel().setSelectionInterval(jtabla.getRowCount() - 1, jtabla.getRowCount() - 1);
+                        }
+
+                    } catch (NullPointerException ex) {
+
+                        JOptionPane.showMessageDialog(null, "Ha ocurrido puntero vacio", "NullPointerException", JOptionPane.ERROR_MESSAGE);
+
+                    } catch (RuntimeException ex) {
+
+                        JOptionPane.showMessageDialog(null, "Debe completar los campos", "form", JOptionPane.WARNING_MESSAGE);
+                    }
+
+                }
+            }
+
+        });
+        
+        //->
+        jtabla.getModel().addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE) {
+                    System.out.println("evento de actualizacion");
+                    int fila = e.getLastRow();
+                    for (int columnas = 1; columnas < jtabla.getColumnCount(); columnas++) {
+                        Object obj = jtabla.getValueAt(fila, columnas);
+                        if (obj != null) {
+                            System.out.println("1 "+obj);
+                            switch (columnas) {
+                                case 1:
+                                    System.out.println("caso1 "+obj);
+                                    aux.setTipoTratamiento( (String)obj);
+                                    // System.out.println("columna 1 " + aux.getTipoTratamiento());
+                                    break;
+                                case 2:
+                                    System.out.println("caso2 "+obj);
+                                    aux.setDescripcion( (String)obj);
+                                    // System.out.println("columna 2 " + aux.getDescripcion());
+                                    break;
+                                case 3:
+                                    //System.out.println("valor de obj columna 3"+obj);
+                                    //Double importeString = (String) obj;
+//                                    Double valor=(Double) obj;
+//                                    System.out.println(obj);
+                                    // System.out.println(importeString);
+                                    //Double importe = Double.valueOf(importeString);
+//                                    System.out.println(valor);
+                                    System.out.println("caso3 "+obj);
+                                    Double valor = new Double (obj.toString());
+                                    System.out.println(obj);
+                                    aux.setImporte(valor);
+                                    System.out.println("columna 3" + aux.getImporte());
+                                    break;
+                                default:
+                                    System.out.println("erro");
+                                    break;
+
+                            }
+
+                        }
+
+                    }
+//                    System.out.println(aux.getIdTratamiento());
+//                    System.out.println(aux.getTipoTratamiento());
+//                    System.out.println(aux.getDescripcion());
+//                    System.out.println(aux.getImporte());
+
+                    boolean validacion = aux.getImporte() > 0 && !aux.getDescripcion().isEmpty() && !aux.getDescripcion().isEmpty();
+                    if (validacion && insertar) {
+                        System.out.println("insercion Interna");
+                        int opc = JOptionPane.showConfirmDialog(null, "Desea insertar estos datos?Y/N", "Confirmacion", JOptionPane.YES_NO_CANCEL_OPTION);
+                        if (opc == 0) {
+                            aux.setActivo(true);
+                            tradata.guardarTratamiento(aux);
+                            limpiarTabla();
+                            CargarTratamientos();
+                            finInsercion = true;
+                            bloquearSeleccion = false;
+                            aux = null;
+                            aux = new Tratamiento();
+                            jtabla.clearSelection();
+
+                        }
+                    } else if (modoModificacion) {
+                        Tratamiento tratamiento = obtenerTramiento(true);
+                        int respuesta = JOptionPane.showConfirmDialog(null, "Desea modificar este tratamiento?Y?N", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                        if (validacion && tratamiento.getIdTratamiento() > 0 && respuesta == 0) {
+                            tradata.modificar(tratamiento);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Operacion abortada", "Mensaje", JOptionPane.WARNING_MESSAGE);
+                        }
+
+                    }
+
+                } else if (e.getType() == TableModelEvent.INSERT) {
+                    if (aux == null) {
+                        aux = new Tratamiento();
+                    }
+                    finInsercion = false;
+                    insertar = true;
+                    modoModificacion = false;
+                    System.out.println("evento de insercion");
+                    if (!finInsercion) {
+                        bloquearSeleccion = true;
+                    }
+
+                }
+            }
+
+        });
+        
+         
+ 
+        
         
     }
 
@@ -49,18 +187,15 @@ public class panelTratamiento extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtabla = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jBorrar = new javax.swing.JButton();
+        jInsertar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -79,38 +214,52 @@ public class panelTratamiento extends javax.swing.JPanel {
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 5, 2, 0));
 
-        jButton1.setBackground(new java.awt.Color(255, 0, 51));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/borraTabla.png"))); // NOI18N
-        jButton1.setText("Borrar");
-        jPanel2.add(jButton1);
-
-        jButton2.setBackground(new java.awt.Color(0, 255, 0));
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/InsertarTabla.png"))); // NOI18N
-        jButton2.setText("Insertar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBorrar.setBackground(new java.awt.Color(255, 0, 51));
+        jBorrar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBorrar.setForeground(new java.awt.Color(255, 255, 255));
+        jBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/borraTabla.png"))); // NOI18N
+        jBorrar.setText("Borrar");
+        jBorrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBorrarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2);
+        jPanel2.add(jBorrar);
+
+        jInsertar.setBackground(new java.awt.Color(0, 255, 0));
+        jInsertar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jInsertar.setForeground(new java.awt.Color(255, 255, 255));
+        jInsertar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/InsertarTabla.png"))); // NOI18N
+        jInsertar.setText("Insertar");
+        jInsertar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jInsertar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jInsertarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jInsertar);
 
         jButton3.setBackground(new java.awt.Color(51, 255, 102));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8-actualizar-16.png"))); // NOI18N
         jButton3.setText("Recargar");
+        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel2.add(jButton3);
 
-        jButton5.setBackground(new java.awt.Color(153, 153, 153));
-        jButton5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8-cancelar-16.png"))); // NOI18N
-        jButton5.setText("Cancerlar");
-        jPanel2.add(jButton5);
+        jCancelar.setBackground(new java.awt.Color(153, 153, 153));
+        jCancelar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        jCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8-cancelar-16.png"))); // NOI18N
+        jCancelar.setText("Cancerlar");
+        jCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jCancelar);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Administracion de tratamientos");
@@ -122,75 +271,151 @@ public class panelTratamiento extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(jLabel1))
+                        .addGap(57, 57, 57)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(24, Short.MAX_VALUE)))
+                        .addGap(104, 104, 104)
+                        .addComponent(jLabel1)))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
-            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(81, 81, 81)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(244, Short.MAX_VALUE)))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addGap(176, 176, 176))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    //Inserta una nueva fila a la tabla
+    private void jInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jInsertarActionPerformed
         // TODO add your handling code here:
-         modelo.addRow(new Object[]{});
-    }//GEN-LAST:event_jButton2ActionPerformed
+        modelo.addRow(new Object[]{});
+        jtabla.setRowSelectionInterval(jtabla.getRowCount()-1, jtabla.getRowCount()-1);
+        jtabla.setColumnSelectionInterval(1,jtabla.getColumnCount()-1);
+    }//GEN-LAST:event_jInsertarActionPerformed
+
+    private void jCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelarActionPerformed
+        // TODO add your handling code here:
+         int fila = jtabla.getSelectedRow();
+        if (fila != -1) {
+            modelo.removeRow(fila);
+            bloquearSeleccion = false;
+            modoModificacion = true;
+            insertar = false;
+            jtabla.clearSelection();
+        }
+
+    }//GEN-LAST:event_jCancelarActionPerformed
+    //boton borrar
+    private void jBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrarActionPerformed
+        // TODO add your handling code here:
+             Tratamiento auxiliar = obtenerTramiento(true);
+        if (auxiliar != null) {
+            tradata.eliminar(auxiliar.getIdTratamiento());
+            limpiarTabla();
+            CargarTratamientos();
+            jtabla.clearSelection();
+            bloquearSeleccion = false;
+            //_>
+            modoModificacion = true;
+            insertar = false;
+        } else {
+            JOptionPane.showMessageDialog(null, "No se puede borrar este elemento", "Ups", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
+        
+    }//GEN-LAST:event_jBorrarActionPerformed
+    //Carga todos los tratamientos activos
+    private void CargarTratamientos() {
+        ArrayList<Tratamiento> listaTratamientos = tradata.ListaTrata();
+        for (Tratamiento t : listaTratamientos) {
+            modelo.addRow(new Object[]{
+                t.getIdTratamiento(),
+                t.getTipoTratamiento(),
+                t.getDescripcion(),
+                t.getImporte()
+            });
+
+        }
+
+    }
+
+    private Tratamiento obtenerTramiento(boolean id) {
+        Tratamiento auxiliar = new Tratamiento();
+        try {
+            int val = id ? 0 : 1;
+            int fila = jtabla.getSelectedRow();
+            int columna = jtabla.getSelectedColumn();
+            if (fila != -1 && columna != -1) {
+
+                for (int columnas = val; columnas < jtabla.getColumnCount(); columnas++) {
+                    Object obj = jtabla.getValueAt(fila, columnas);
+//                    if (obj == null) {
+//                        throw new RuntimeException("El objeto es nulo");
+//                    }
+                    switch (columnas) {
+                        case 0:
+                            auxiliar.setIdTratamiento((Integer) obj);
+                            break;
+                        case 1:
+                            auxiliar.setTipoTratamiento((String) obj);
+                            break;
+                        case 2:
+                            auxiliar.setDescripcion((String) obj);
+                            break;
+                        default:
+                            auxiliar.setImporte((Double) obj);
+                            break;
+                    }
+
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No ha seleccionado ningun elemento", "error", JOptionPane.WARNING_MESSAGE);
+
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error" + ex.getMessage(), "Info", JOptionPane.WARNING_MESSAGE);
+        }
+        return auxiliar;
+    }
+
+    private void limpiarTabla() {
+        int filas = modelo.getRowCount() - 1;
+        for (int i = filas; i >= 0; i--) {
+            modelo.removeRow(i);
+
+        }
+
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jBorrar;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jCancelar;
+    private javax.swing.JButton jInsertar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;

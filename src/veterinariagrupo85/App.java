@@ -6,6 +6,7 @@ package veterinariagrupo85;
 import Vistas.Panel1;
 import Vistas.Panel2;
 import Vistas.PanelHome;
+import Vistas.PanelVisitas;
 import Vistas.panelTratamiento;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -29,6 +30,7 @@ public class App extends javax.swing.JFrame {
     Panel2 panel2;
     PanelHome home;
     panelTratamiento panel3;
+    PanelVisitas panelVisitas;
     CardLayout cardLayout;
     
     /**
@@ -36,6 +38,7 @@ public class App extends javax.swing.JFrame {
      */
     public App() {
         initComponents();
+        this.setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/Resources/pet.png")).getImage());
         //cardLayout=(CardLayout)panel1.getLayout();
         cardLayout=new CardLayout();
@@ -44,10 +47,12 @@ public class App extends javax.swing.JFrame {
         panel2=new Panel2();
         panel1=new Panel1();
         panel3=new panelTratamiento();
+        panelVisitas=new PanelVisitas();
         panelCentral.add(home,identificadores[3]); //home
         panelCentral.add(panel2,identificadores[1]); // mascotas
         panelCentral.add(panel1,identificadores[0]); // clientes
         panelCentral.add(panel3,identificadores[2]); // tratamientos
+        panelCentral.add(panelVisitas,identificadores[4]); // visitas
         setResizable(false);
         
         
@@ -75,14 +80,14 @@ public class App extends javax.swing.JFrame {
                 g.drawImage(image, 0, 0, this);
             }
         };
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jClientes = new javax.swing.JButton();
+        jMascotas = new javax.swing.JButton();
+        jTratamientos = new javax.swing.JButton();
+        jVisitas = new javax.swing.JButton();
         jHome = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        jOpciones = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        jSalir = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         panelCentral = new javax.swing.JPanel();
 
@@ -99,57 +104,73 @@ public class App extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/customer.png"))); // NOI18N
-        jButton1.setText("Clientes");
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setOpaque(true);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jClientes.setBackground(new java.awt.Color(255, 255, 255));
+        jClientes.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jClientes.setForeground(new java.awt.Color(0, 0, 0));
+        jClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/customer.png"))); // NOI18N
+        jClientes.setText("Clientes");
+        jClientes.setBorder(null);
+        jClientes.setBorderPainted(false);
+        jClientes.setContentAreaFilled(false);
+        jClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jClientesActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/pet_icon_244628.png"))); // NOI18N
-        jButton2.setText("Mascotas");
-        jButton2.setBorder(null);
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton2.setOpaque(true);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jMascotas.setBackground(new java.awt.Color(255, 255, 255));
+        jMascotas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jMascotas.setForeground(new java.awt.Color(0, 0, 0));
+        jMascotas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/pet_icon_244628.png"))); // NOI18N
+        jMascotas.setText("Mascotas");
+        jMascotas.setBorder(null);
+        jMascotas.setBorderPainted(false);
+        jMascotas.setContentAreaFilled(false);
+        jMascotas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jMascotas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jMascotasActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/-local-hospital_90099.png"))); // NOI18N
-        jButton3.setText("Tratamientos");
-        jButton3.setBorder(null);
-        jButton3.setBorderPainted(false);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.setFocusPainted(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jTratamientos.setBackground(new java.awt.Color(255, 255, 255));
+        jTratamientos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jTratamientos.setForeground(new java.awt.Color(0, 0, 0));
+        jTratamientos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/-local-hospital_90099.png"))); // NOI18N
+        jTratamientos.setText("Tratamientos");
+        jTratamientos.setBorder(null);
+        jTratamientos.setBorderPainted(false);
+        jTratamientos.setContentAreaFilled(false);
+        jTratamientos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jTratamientos.setFocusPainted(false);
+        jTratamientos.setOpaque(false);
+        jTratamientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jTratamientosActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/phonendoscope_2786238.png"))); // NOI18N
-        jButton4.setText("Visitas");
-        jButton4.setBorder(null);
-        jButton4.setBorderPainted(false);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4.setFocusPainted(false);
+        jVisitas.setBackground(new java.awt.Color(255, 255, 255));
+        jVisitas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jVisitas.setForeground(new java.awt.Color(0, 0, 0));
+        jVisitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/phonendoscope_2786238.png"))); // NOI18N
+        jVisitas.setText("Visitas");
+        jVisitas.setBorder(null);
+        jVisitas.setBorderPainted(false);
+        jVisitas.setContentAreaFilled(false);
+        jVisitas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jVisitas.setFocusPainted(false);
+        jVisitas.setOpaque(false);
+        jVisitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jVisitasActionPerformed(evt);
+            }
+        });
 
         jHome.setBackground(new java.awt.Color(255, 255, 255));
-        jHome.setForeground(new java.awt.Color(153, 153, 153));
+        jHome.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jHome.setForeground(new java.awt.Color(0, 0, 0));
         jHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/home_icon-icons.com_73532.png"))); // NOI18N
         jHome.setText("Home");
         jHome.setBorder(null);
@@ -163,62 +184,73 @@ public class App extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/settings-cogwheel-button_icon-icons.com_72559.png"))); // NOI18N
-        jButton7.setText("Opciones");
-        jButton7.setBorder(null);
-        jButton7.setBorderPainted(false);
-        jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton7.setFocusPainted(false);
+        jOpciones.setBackground(new java.awt.Color(255, 255, 255));
+        jOpciones.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jOpciones.setForeground(new java.awt.Color(0, 0, 0));
+        jOpciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/settings-cogwheel-button_icon-icons.com_72559.png"))); // NOI18N
+        jOpciones.setText("Opciones");
+        jOpciones.setBorder(null);
+        jOpciones.setBorderPainted(false);
+        jOpciones.setContentAreaFilled(false);
+        jOpciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jOpciones.setFocusPainted(false);
+        jOpciones.setOpaque(false);
 
         javax.swing.GroupLayout JpanelIzquierdoLayout = new javax.swing.GroupLayout(JpanelIzquierdo);
         JpanelIzquierdo.setLayout(JpanelIzquierdoLayout);
         JpanelIzquierdoLayout.setHorizontalGroup(
             JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
                 .addGroup(JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton7)
-                    .addComponent(jButton4)
-                    .addComponent(jButton3))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jTratamientos))
+                    .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jVisitas)))
+                .addContainerGap(7, Short.MAX_VALUE))
             .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addContainerGap()
                 .addGroup(JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jHome, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(jHome, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jOpciones))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         JpanelIzquierdoLayout.setVerticalGroup(
             JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
-                .addGap(59, 59, 59)
+                .addGap(34, 34, 34)
                 .addComponent(jHome)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(jClientes)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(jMascotas)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(jTratamientos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton7)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addComponent(jVisitas)
+                .addGap(18, 18, 18)
+                .addComponent(jOpciones)
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         getContentPane().add(JpanelIzquierdo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 140, 420));
 
         jPanel3.setBackground(new java.awt.Color(51, 51, 51));
 
-        jButton5.setBackground(new java.awt.Color(255, 0, 51));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/exit_icon-icons.com_70975.png"))); // NOI18N
-        jButton5.setText("Salir");
-        jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jSalir.setBackground(new java.awt.Color(255, 0, 51));
+        jSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/exit_icon-icons.com_70975.png"))); // NOI18N
+        jSalir.setText("Salir");
+        jSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jSalirActionPerformed(evt);
             }
         });
 
@@ -226,16 +258,16 @@ public class App extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addComponent(jSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(jSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 140, 60));
 
-        jPanel1.setBackground(new java.awt.Color(102, 255, 51));
+        jPanel1.setBackground(new java.awt.Color(51, 102, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -251,12 +283,12 @@ public class App extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 590, 40));
 
         panelCentral.setLayout(new java.awt.CardLayout());
-        getContentPane().add(panelCentral, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 580, 430));
+        getContentPane().add(panelCentral, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 590, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+//clientes
+    private void jClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClientesActionPerformed
         // TODO add your handling code here:
         if(Panel1.capaClientes){
              cardLayout.show(panelCentral,identificadores[0]);
@@ -268,7 +300,7 @@ public class App extends javax.swing.JFrame {
 //        cardLayout.show(panelCentral,identificadores[0]);
 //        Panel1.jRetroceder.setVisible(false);
        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jClientesActionPerformed
 
     private void JpanelIzquierdoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JpanelIzquierdoMouseEntered
         // TODO add your handling code here:
@@ -282,7 +314,7 @@ public class App extends javax.swing.JFrame {
           }
     }//GEN-LAST:event_JpanelIzquierdoMouseEntered
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSalirActionPerformed
         // TODO add your handling code here:
         int re=JOptionPane.showConfirmDialog(this,"Desea realmente salir?","Salir",JOptionPane.YES_NO_OPTION);
         if(re==0){
@@ -290,18 +322,15 @@ public class App extends javax.swing.JFrame {
             
         }
         
-    }//GEN-LAST:event_jButton5ActionPerformed
-
+    }//GEN-LAST:event_jSalirActionPerformed
+    //home
     private void jHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jHomeActionPerformed
         // TODO add your handling code here:
-//        panelCentral.add(panel1,"panel1");
-//        SwingUtilities.updateComponentTreeUI(this);
-//        this.repaint();
             cardLayout.show(panelCentral,identificadores[3]);
         
     }//GEN-LAST:event_jHomeActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    // mascotas
+    private void jMascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMascotasActionPerformed
         // TODO add your handling code here:
             if(!Panel2.capaMascotas){
                 Panel1.jRetroceder.doClick();
@@ -318,14 +347,19 @@ public class App extends javax.swing.JFrame {
 //            cardLayout.show(panelCentral,identificadores[1]);
 //    
        
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jMascotasActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jTratamientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTratamientosActionPerformed
         // TODO add your handling code here:
         cardLayout.show(panelCentral,identificadores[2]);
        
         
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jTratamientosActionPerformed
+
+    private void jVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jVisitasActionPerformed
+        // TODO add your handling code here:
+        cardLayout.show(panelCentral,identificadores[4]);
+    }//GEN-LAST:event_jVisitasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -369,18 +403,23 @@ public class App extends javax.swing.JFrame {
             }
         });
     }
+    
+    public static void bloqueVentana(JFrame marco,boolean predicado){
+        marco.setVisible(predicado);
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelIzquierdo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jClientes;
     private javax.swing.JButton jHome;
+    private javax.swing.JButton jMascotas;
+    private javax.swing.JButton jOpciones;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton jSalir;
+    private javax.swing.JButton jTratamientos;
+    private javax.swing.JButton jVisitas;
     private javax.swing.JPanel panelCentral;
     // End of variables declaration//GEN-END:variables
 }
