@@ -13,13 +13,15 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.File;
 import javax.swing.*;
 /**
  *
  * @author Owner
  */
 public class App extends javax.swing.JFrame {
-
+    private String config;
+    public static File archivo;
     private final String [] identificadores={
         "panelClientes","panelMascotas",
         "PanelTratamiento","PanelHome",

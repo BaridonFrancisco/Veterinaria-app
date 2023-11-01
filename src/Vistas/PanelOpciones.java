@@ -4,6 +4,12 @@
  */
 package Vistas;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+
 /**
  *
  * @author Owner
@@ -13,9 +19,19 @@ public class PanelOpciones extends javax.swing.JPanel {
     /**
      * Creates new form PanelOpciones
      */
-    String [] themesOpcione={};
+    //String projectDir = System.getProperty("user.dir");
+   
+    String [] themesOpcione={"Default",""};
     public PanelOpciones() {
         initComponents();
+        
+         String ruta="src/config/c.txt";
+        File file=new File(ruta);
+        if(file.exists()){
+            System.out.println("la ruta existe");
+        }else{
+            System.out.println("no existe");
+        }
     }
 
     /**
@@ -80,6 +96,18 @@ public class PanelOpciones extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+      public static void leerArchivo(String path){
+        try {
+            List<String> resutado= Files.readAllLines(Paths.get(path));
+            for(String l:resutado){
+                System.out.println(l);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

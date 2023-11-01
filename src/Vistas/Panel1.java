@@ -41,7 +41,7 @@ public class Panel1 extends javax.swing.JPanel {
         grupoBotones.add(jActivo);
         grupoBotones.add(jInactivo);
         jModificar.setEnabled(false);
-       
+        
         
         jDni.addFocusListener((new FocusListener() {
             @Override
