@@ -144,7 +144,8 @@ public class panelTratamiento extends javax.swing.JPanel {
 //
 //                    }
                       aux=obtenerTramiento(true);
-                      boolean validacion = aux.getImporte() > 0 && !aux.getDescripcion().isEmpty() && !aux.getDescripcion().isEmpty();
+                      aux.setActivo(true);
+                      boolean validacion = aux.getImporte() > 0 && !aux.getDescripcion().isEmpty() && !aux.getDescripcion().isEmpty() && aux!=null;
                       if(validacion){
                           
                           int respuesta = JOptionPane.showConfirmDialog(null, "Desea modificar este tratamiento?Y?N", "Confirmacion", JOptionPane.YES_NO_OPTION);

@@ -13,6 +13,7 @@ public class PanelOpciones extends javax.swing.JPanel {
     /**
      * Creates new form PanelOpciones
      */
+    String [] themesOpcione={};
     public PanelOpciones() {
         initComponents();
     }

@@ -93,7 +93,17 @@ public class App extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jSalir = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+
+                ImageIcon imageIcon = new ImageIcon("src\\Resources\\huesos7.jpg");
+                Image image = imageIcon.getImage();
+
+                g.drawImage(image, 0, 0,this);
+            }
+        };
         panelCentral = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -156,7 +166,7 @@ public class App extends javax.swing.JFrame {
         });
 
         jVisitas.setBackground(new java.awt.Color(255, 255, 255));
-        jVisitas.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jVisitas.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jVisitas.setForeground(new java.awt.Color(0, 0, 0));
         jVisitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/phonendoscope_2786238.png"))); // NOI18N
         jVisitas.setText("Visitas");
@@ -205,7 +215,7 @@ public class App extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 0, 255));
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Grupo  85");
 
         javax.swing.GroupLayout JpanelIzquierdoLayout = new javax.swing.GroupLayout(JpanelIzquierdo);
@@ -215,44 +225,38 @@ public class App extends javax.swing.JFrame {
             .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jHome, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jOpciones)
-                    .addComponent(jLabel1))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
-                .addGroup(JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTratamientos)
+                            .addComponent(jClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(7, Short.MAX_VALUE))
                     .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTratamientos))
-                    .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jVisitas)))
-                .addContainerGap(7, Short.MAX_VALUE))
+                        .addGroup(JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jHome, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jVisitas)
+                            .addComponent(jOpciones))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         JpanelIzquierdoLayout.setVerticalGroup(
             JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jHome)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jClientes)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(jMascotas)
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
                 .addComponent(jTratamientos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jVisitas)
                 .addGap(18, 18, 18)
                 .addComponent(jOpciones)
-                .addGap(22, 22, 22)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel1)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         getContentPane().add(JpanelIzquierdo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 140, 420));
@@ -428,7 +432,8 @@ public class App extends javax.swing.JFrame {
         marco.setVisible(predicado);
         
     }
-
+    
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JpanelIzquierdo;
     private javax.swing.JButton jClientes;
