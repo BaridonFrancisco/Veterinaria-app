@@ -113,7 +113,10 @@ public class crearVisita extends javax.swing.JFrame {
 
         jtPeso.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        jbCrear.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jbCrear.setBackground(new java.awt.Color(102, 102, 255));
+        jbCrear.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jbCrear.setForeground(new java.awt.Color(255, 255, 255));
+        jbCrear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/crearVisita.png"))); // NOI18N
         jbCrear.setText("Crear");
         jbCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

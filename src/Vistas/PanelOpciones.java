@@ -4,11 +4,14 @@
  */
 package Vistas;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
+import java.nio.file.StandardOpenOption;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -20,18 +23,19 @@ public class PanelOpciones extends javax.swing.JPanel {
      * Creates new form PanelOpciones
      */
     //String projectDir = System.getProperty("user.dir");
-   
-    String [] themesOpcione={"Default",""};
+    String ruta="src/config/c.txt";
+    String [] themesOpcione={"Default","MonoKai","oneDarkPro"};
     public PanelOpciones() {
         initComponents();
+        cargarComboBox();
         
-         String ruta="src/config/c.txt";
-        File file=new File(ruta);
-        if(file.exists()){
-            System.out.println("la ruta existe");
-        }else{
-            System.out.println("no existe");
-        }
+//          ruta="src/config/c.txt";
+//        File file=new File(ruta);
+//        if(file.exists()){
+//            System.out.println("la ruta existe");
+//        }else{
+//            System.out.println("no existe");
+//        }
     }
 
     /**
@@ -45,7 +49,7 @@ public class PanelOpciones extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboThemes = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -54,9 +58,18 @@ public class PanelOpciones extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Selecionar theme");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboThemes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboThemesActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Aplicar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -69,8 +82,8 @@ public class PanelOpciones extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(162, Short.MAX_VALUE))
+                        .addComponent(jComboThemes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,7 +91,7 @@ public class PanelOpciones extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboThemes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(14, 14, 14))
@@ -96,22 +109,46 @@ public class PanelOpciones extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
-      public static void leerArchivo(String path){
-        try {
-            List<String> resutado= Files.readAllLines(Paths.get(path));
-            for(String l:resutado){
-                System.out.println(l);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    private void jComboThemesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboThemesActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboThemesActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int opcion=JOptionPane.showConfirmDialog(null, "Esta seguro que desea cambiar el theme debe reiniciar su App","Cambiar theme",JOptionPane.YES_NO_OPTION);
+        if(opcion==0){
+            String themeComboBox=(String)jComboThemes.getSelectedItem();
+            escribirArchivo(ruta,themeComboBox);
+            
+            
         }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    
+    private void cargarComboBox(){
+        for(String item:themesOpcione){
+            jComboThemes.addItem(item);
+        }
+        
     }
+    
+
+    
+      
+  public static void escribirArchivo(String path, String contenido) {
+    Path ruta = Paths.get(path);
+    try {
+        Files.write(ruta, contenido.getBytes(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+}    
+      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboThemes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

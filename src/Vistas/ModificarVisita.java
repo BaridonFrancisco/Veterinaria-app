@@ -116,7 +116,10 @@ public class ModificarVisita extends javax.swing.JFrame {
 
         jtPeso.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        jbModificar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jbModificar.setBackground(new java.awt.Color(255, 102, 204));
+        jbModificar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jbModificar.setForeground(new java.awt.Color(255, 255, 255));
+        jbModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/editarVisitas.png"))); // NOI18N
         jbModificar.setText("Modificar");
         jbModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

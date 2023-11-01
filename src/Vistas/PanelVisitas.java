@@ -122,10 +122,12 @@ public class PanelVisitas extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTabla);
 
-        jConsulta.setBackground(new java.awt.Color(255, 255, 153));
+        jConsulta.setBackground(new java.awt.Color(255, 51, 255));
         jConsulta.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jConsulta.setForeground(new java.awt.Color(255, 255, 255));
+        jConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/consulta.png"))); // NOI18N
         jConsulta.setText("Realizar consulta");
+        jConsulta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jConsulta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jConsultaActionPerformed(evt);
@@ -137,6 +139,7 @@ public class PanelVisitas extends javax.swing.JPanel {
         jBuscar.setForeground(new java.awt.Color(255, 255, 255));
         jBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/xmag_search_find_export_locate_5984.png"))); // NOI18N
         jBuscar.setText("Buscar");
+        jBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBuscarActionPerformed(evt);
@@ -149,9 +152,6 @@ public class PanelVisitas extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(215, 215, 215)
-                        .addComponent(jConsulta))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(74, 74, 74)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,6 +181,9 @@ public class PanelVisitas extends javax.swing.JPanel {
                         .addGap(177, 177, 177)
                         .addComponent(jLabel1)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jConsulta)
+                .addGap(186, 186, 186))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,9 +207,9 @@ public class PanelVisitas extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(18, 18, 18)
                 .addComponent(jConsulta)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

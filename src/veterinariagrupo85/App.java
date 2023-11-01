@@ -9,26 +9,31 @@ import Vistas.PanelHome;
 import Vistas.PanelOpciones;
 import Vistas.PanelVisitas;
 import Vistas.panelTratamiento;
+import com.formdev.flatlaf.intellijthemes.FlatMonocaiIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatMonokaiProIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatOneDarkIJTheme;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import javax.swing.*;
 /**
  *
  * @author Owner
  */
 public class App extends javax.swing.JFrame {
-    private String config;
-    public static File archivo;
+    static String ruta="src/config/c.txt";
     private final String [] identificadores={
         "panelClientes","panelMascotas",
         "PanelTratamiento","PanelHome",
         "PanelVisitas","PanelOpciones"
   
     };
-    public String panelActivo = identificadores[3];
     Panel1 panel1;
     Panel2 panel2;
     PanelHome home;
@@ -228,17 +233,16 @@ public class App extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
-                        .addGroup(JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTratamientos)
-                            .addComponent(jClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTratamientos)
                         .addContainerGap(7, Short.MAX_VALUE))
                     .addGroup(JpanelIzquierdoLayout.createSequentialGroup()
                         .addGroup(JpanelIzquierdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jHome, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(jMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jVisitas)
-                            .addComponent(jOpciones))
+                            .addComponent(jOpciones)
+                            .addComponent(jHome, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         JpanelIzquierdoLayout.setVerticalGroup(
@@ -248,17 +252,17 @@ public class App extends javax.swing.JFrame {
                 .addComponent(jHome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jClientes)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addComponent(jMascotas)
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addComponent(jTratamientos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jVisitas)
                 .addGap(18, 18, 18)
                 .addComponent(jOpciones)
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         getContentPane().add(JpanelIzquierdo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 140, 420));
@@ -312,13 +316,7 @@ public class App extends javax.swing.JFrame {
     private void jClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClientesActionPerformed
         // TODO add your handling code here:
         cardLayout.show(panelCentral,identificadores[0]);
-//        if(Panel1.capaClientes){
-//             cardLayout.show(panelCentral,identificadores[0]);
-//             Panel1.jRetroceder.setVisible(false);
-//        }else{
-//             Panel1.jRetroceder.doClick();
-//            Panel1.jRetroceder.setVisible(false);
-//        }
+
  
     }//GEN-LAST:event_jClientesActionPerformed
 
@@ -353,20 +351,6 @@ public class App extends javax.swing.JFrame {
     private void jMascotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMascotasActionPerformed
         // TODO add your handling code here:
          cardLayout.show(panelCentral,identificadores[1]);
-//            if(!Panel2.capaMascotas){
-//                Panel1.jRetroceder.doClick();
-//                Panel1.jRetroceder.setVisible(false);
-//                 cardLayout.show(panelCentral,identificadores[1]);
-//            }else{   
-//                cardLayout.show(panelCentral,identificadores[1]);
-//            //cardLayout.show(panelCentral,identificadores[1]);
-//            }
-//        
-        
-//             Panel1.jRetroceder.doClick();
-//            Panel1.jRetroceder.setVisible(false);
-//            cardLayout.show(panelCentral,identificadores[1]);
-//    
        
     }//GEN-LAST:event_jMascotasActionPerformed
 
@@ -415,7 +399,24 @@ public class App extends javax.swing.JFrame {
 //        }
   try {
         // Establece el "look and feel" a FlatLaf
-        UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
+        String theme=leerArchivo(ruta);
+        System.out.println(theme);
+        
+        switch (theme) {
+          case "MonoKai":
+              FlatMonokaiProIJTheme.setup();
+              break;
+            case "oneDarkPro":
+                FlatOneDarkIJTheme.setup();
+                break;
+    
+          default:
+               UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatLightLaf());
+      }
+        
+        
+        
+       
          
     } catch (UnsupportedLookAndFeelException e) {
         e.printStackTrace();
@@ -430,9 +431,17 @@ public class App extends javax.swing.JFrame {
         });
     }
     
-    public static void bloqueVentana(JFrame marco,boolean predicado){
-        marco.setVisible(predicado);
-        
+      private static String leerArchivo(String path){
+         StringBuilder cadena = new StringBuilder();
+        try {
+            List<String> resutado= Files.readAllLines(Paths.get(path));
+            for(String l:resutado){
+                cadena.append(l);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return cadena.toString();
     }
     
    

@@ -250,10 +250,10 @@ public class panelTratamiento extends javax.swing.JPanel {
         });
         jPanel2.add(jInsertar);
 
-        jGuardar.setBackground(new java.awt.Color(153, 153, 153));
+        jGuardar.setBackground(new java.awt.Color(0, 153, 51));
         jGuardar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jGuardar.setForeground(new java.awt.Color(255, 255, 255));
-        jGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8-cancelar-16.png"))); // NOI18N
+        jGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/gurdarTratamiento.png"))); // NOI18N
         jGuardar.setText("Guardar");
         jGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -269,6 +269,11 @@ public class panelTratamiento extends javax.swing.JPanel {
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/icons8-actualizar-16.png"))); // NOI18N
         jButton3.setText("Recargar");
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton3);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
@@ -424,6 +429,12 @@ public class panelTratamiento extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_jBorrarActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        limpiarTabla();
+        CargarTratamientos();
+    }//GEN-LAST:event_jButton3ActionPerformed
     //Carga todos los tratamientos activos
     private void CargarTratamientos() {
         ArrayList<Tratamiento> listaTratamientos = tradata.ListaTrata();

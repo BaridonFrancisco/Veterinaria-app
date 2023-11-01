@@ -82,7 +82,7 @@ public class listaVisita extends javax.swing.JFrame {
         jEliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Administrador de Visitas");
+        setTitle("Visitas de la Mascota");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -107,7 +107,10 @@ public class listaVisita extends javax.swing.JFrame {
         jtAlias.setEditable(false);
         jtAlias.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        jCrear.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jCrear.setBackground(new java.awt.Color(102, 255, 102));
+        jCrear.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jCrear.setForeground(new java.awt.Color(255, 255, 255));
+        jCrear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/crearVisita.png"))); // NOI18N
         jCrear.setText("Crear Visita");
         jCrear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +123,10 @@ public class listaVisita extends javax.swing.JFrame {
 
         jcCombo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
-        jBuscar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jBuscar.setBackground(new java.awt.Color(102, 0, 204));
+        jBuscar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        jBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/buscar1.png"))); // NOI18N
         jBuscar.setText("Buscar");
         jBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +137,10 @@ public class listaVisita extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel4.setText("Peso Promedio de las ultimas 10 visitas:");
 
-        jbBuscarVisitasMascota.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jbBuscarVisitasMascota.setBackground(new java.awt.Color(51, 51, 255));
+        jbBuscarVisitasMascota.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jbBuscarVisitasMascota.setForeground(new java.awt.Color(255, 255, 255));
+        jbBuscarVisitasMascota.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/actualizarVisitas.png"))); // NOI18N
         jbBuscarVisitasMascota.setText("Actualizar");
         jbBuscarVisitasMascota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,7 +154,10 @@ public class listaVisita extends javax.swing.JFrame {
         jlPesoPromedio.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jlPesoPromedio.setText("0");
 
-        jModificar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jModificar.setBackground(new java.awt.Color(153, 153, 255));
+        jModificar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jModificar.setForeground(new java.awt.Color(255, 255, 255));
+        jModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/editarVisitas.png"))); // NOI18N
         jModificar.setText("Modificar Visita");
         jModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,7 +165,9 @@ public class listaVisita extends javax.swing.JFrame {
             }
         });
 
-        jEliminar.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jEliminar.setBackground(new java.awt.Color(255, 51, 51));
+        jEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        jEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/borrarVisitas.png"))); // NOI18N
         jEliminar.setText("Eliminar Visita");
         jEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,7 +214,7 @@ public class listaVisita extends javax.swing.JFrame {
                                             .addComponent(jcCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(18, 18, 18)
                                             .addComponent(jBuscar))))
-                                .addGap(0, 177, Short.MAX_VALUE)))
+                                .addGap(0, 214, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -226,7 +240,7 @@ public class listaVisita extends javax.swing.JFrame {
                     .addComponent(jcCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBuscar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCrear)

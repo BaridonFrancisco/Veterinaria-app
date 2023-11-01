@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -107,8 +108,8 @@ public class Panel1 extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jDomicilio = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jLimpiar = new javax.swing.JButton();
+        jListadoClientes = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -210,22 +211,27 @@ public class Panel1 extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.Y_AXIS));
 
-        jButton1.setBackground(new java.awt.Color(255, 102, 255));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/limpiarClientes.png"))); // NOI18N
-        jButton1.setText("Limpiar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jLimpiar.setBackground(new java.awt.Color(255, 102, 255));
+        jLimpiar.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLimpiar.setForeground(new java.awt.Color(255, 255, 255));
+        jLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/limpiarClientes.png"))); // NOI18N
+        jLimpiar.setText("Limpiar");
+        jLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jLimpiarActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(0, 153, 153));
-        jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/listaClientes.png"))); // NOI18N
-        jButton2.setText("Listado");
+        jListadoClientes.setBackground(new java.awt.Color(0, 153, 153));
+        jListadoClientes.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jListadoClientes.setForeground(new java.awt.Color(255, 255, 255));
+        jListadoClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/listaClientes.png"))); // NOI18N
+        jListadoClientes.setText("Listado");
+        jListadoClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jListadoClientesActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel10.setText("Siga las instrucciones para poder llenar los campos");
@@ -286,8 +292,8 @@ public class Panel1 extends javax.swing.JPanel {
                                     .addComponent(jInsertar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jListadoClientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(92, 92, 92)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -331,12 +337,12 @@ public class Panel1 extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbuscar)
                     .addComponent(Eliminar)
-                    .addComponent(jButton1))
+                    .addComponent(jLimpiar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jModificar)
                     .addComponent(jInsertar)
-                    .addComponent(jButton2))
+                    .addComponent(jListadoClientes))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
@@ -498,7 +504,7 @@ public class Panel1 extends javax.swing.JPanel {
                     jInactivo.setSelected(true);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Cliente no encontrado", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cliente no encontrado", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 
             }
             
@@ -508,12 +514,12 @@ public class Panel1 extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jbuscarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLimpiarActionPerformed
         // TODO add your handling code here:
         limpiarCampos();
         jModificar.setEnabled(false);
         idBuscado=0;
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jLimpiarActionPerformed
 
     private void jModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jModificarActionPerformed
         // TODO add your handling code here:
@@ -555,6 +561,13 @@ public class Panel1 extends javax.swing.JPanel {
         
 
     }//GEN-LAST:event_jModificarActionPerformed
+
+    private void jListadoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListadoClientesActionPerformed
+        // TODO add your handling code here:
+        listadoClientes listaClientes=new listadoClientes();
+        listaClientes.setVisible(true);
+        listaClientes.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jListadoClientesActionPerformed
     
     private boolean comprobarNumeros(String cadena) {
         Pattern regex = Pattern.compile("\\d{8}");
@@ -606,8 +619,6 @@ public class Panel1 extends javax.swing.JPanel {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton jActivo;
     private javax.swing.JTextField jApellido;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JTextField jContactoAlternativo;
     private javax.swing.JTextField jDni;
     private javax.swing.JTextField jDomicilio;
@@ -623,6 +634,8 @@ public class Panel1 extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JButton jLimpiar;
+    private javax.swing.JButton jListadoClientes;
     private javax.swing.JButton jModificar;
     private javax.swing.JTextField jNombre;
     private javax.swing.JPanel jPanel2;
