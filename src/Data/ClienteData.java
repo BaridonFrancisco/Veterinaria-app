@@ -63,7 +63,7 @@ public class ClienteData {
 
         Cliente cliente = null;
 
-        String sql = "SELECT * FROM `cliente` WHERE dni=? and activo=1";
+        String sql = "SELECT * FROM `cliente` WHERE dni=?";
 
         try (PreparedStatement ps = con.prepareStatement(sql);) {
 
